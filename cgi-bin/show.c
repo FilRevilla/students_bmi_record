@@ -5,7 +5,7 @@
 #include <string.h>
 #include <fcgi_stdio.h>
 
-//gcc -o s_show.o s_show.c -lsqlite3 -ljansson  -lfcgi
+//gcc -o show.o show.c -lsqlite3 -ljansson  -lfcgi
 //sudo apt-get install libapache2-mod-fcgid
 //sudo apt-get install libfcgi-dev
 
@@ -16,7 +16,7 @@ int main() {
     sqlite3 *db;
     sqlite3_stmt *stmt;
     int rc;
-
+  
     /* use for checking and root data [incoming request] */
     long len = 0; // use to measure the length of incoming data
     json_t *root;
@@ -25,8 +25,8 @@ int main() {
     json_t *object; // for json_object();
     json_t *res_root = json_object(); /* for combining */
     json_t *array = json_array(); /* for combining */
-
-    char *response_data; /* return response */
+    
+    char *response_data; /* return response */    
     char *incoming_data; /* original request */
 
     /* use for json_array_foreach */
@@ -39,7 +39,7 @@ int main() {
 
     // Get the length of the input data
     len = strtol(getenv("CONTENT_LENGTH"), NULL, 10);
-
+   
     // Allocate memory to store the input data
     incoming_data = malloc(len+1);
 
@@ -53,24 +53,24 @@ int main() {
         printf("error: on line %d: %s\n", error.line, error.text);
         return 0;
     }
-
+   
     // Extract the required information from the JSON data
     json_array_foreach(root, index, value) {
         name = json_string_value(json_object_get(value, "name"));
         id = atoi(json_string_value (json_object_get(value, "value"))); // atoi convert string to int
-
+        
        result = strcmp(name, "id");
 
-        if (result == 0) {
+        if (result == 0) {       
             uid = id;
             printf("name: %s\n", name);
             printf("value: %d\n", uid);
-        }
+        }       
     }
 
 
-    rc = sqlite3_open("data.db", &db);
-
+    rc = sqlite3_open("db/data.db", &db);
+    
     if (rc != SQLITE_OK) {
         printf("Cannot open database: %s\n", sqlite3_errmsg(db));
         sqlite3_close(db);
@@ -89,9 +89,9 @@ int main() {
 
 
     sqlite3_bind_int(stmt, 1, uid);
-
+    
     while ((rc = sqlite3_step(stmt)) == SQLITE_ROW) {
-
+    
               object = json_object();
              // add the row data to the JSON object
             json_object_set_new(object, "id", json_string((const char*)sqlite3_column_text(stmt, 0)));
@@ -100,34 +100,30 @@ int main() {
             json_object_set_new(object, "gender", json_string((const char*)sqlite3_column_text(stmt, 3)));
             json_object_set_new(object, "height", json_string((const char*)sqlite3_column_text(stmt, 4)));
             json_object_set_new(object, "weight", json_string((const char*)sqlite3_column_text(stmt, 5)));
-
+            json_object_set_new(object, "bmi", json_string((const char*)sqlite3_column_text(stmt, 6)));
+            json_object_set_new(object, "weight_status", json_string((const char*)sqlite3_column_text(stmt, 7)));          
 
             // add the JSON object to the JSON array
             json_array_append_new(array, object);
-
+             
     }
 
     json_object_set_new(res_root, "status", json_string("success"));
     json_object_set_new(res_root, "message", json_string(incoming_data));
     json_object_set_new(res_root, "data", array);
 
-
     sqlite3_finalize(stmt);
     sqlite3_close(db);
 
-
-
-    // Convert the JSON response to a string
+    // Convert the JSON response to a string    
     response_data = json_dumps(res_root,  JSON_INDENT(4)); //JSON_INDENT(4));
-
-    printf("Content-Type: application/json\n\n");
+   
+    printf("Content-Type: application/json\n\n");    
     printf("%s", response_data);
-
 
     // Free the allocated memory
     free(response_data);
     free(incoming_data);
-
 
     return 0;
 
@@ -135,3 +131,5 @@ int main() {
 
 }
 
+
+//curl -X POST -H "Content-Type: application/json" -d '[{"name": "uid", "value": "3"}]' http://dummy.mshome.net:8081/bin/dyna.o

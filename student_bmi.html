@@ -1,39 +1,51 @@
 <!DOCTYPE html>
 <html>
+
 <head>
- <!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <style>
-    * {
+    /* * {
       font-family: Quicksand;
       font-size: 15px;
       text-align: center;
       color: #050505;
-    }
-    .form {
-      background-color: ;
-      height: 700px;
-      width: 650px;
+    } */
+
+    #insertForm {
+      /* background-color: ; */
+      /* height: 700px; */
+      width: 450px;
       border-radius: 20px;
-      margin: 20px auto 20px auto;
+      margin: 50px 100px;
       display: block;
       border: solid 5px #050001;
       box-shadow: 0 0 40px 0 #110f0f;
     }
-    .form:hover {
+
+    #insertForm:hover {
       box-shadow: 0 0 30px 0 #2c1d1d;
       transition: .4s;
       transform: scale(1.02);
     }
-    .row-one {
-      padding: 10px;
-      text-align: center;
+
+    #listrec {
+      /* background-color: ; */
+      /* height: 700px; */
+      width: 750px;
+      border-radius: 20px;
+      margin: 50px -100px;
+      display: block;
+      border: solid 5px #050001;
+      box-shadow: 0 0 40px 0 #110f0f;
     }
-    .row-two {
-      padding: 10px;
-      text-align: center;
+
+    #listrec:hover {
+      box-shadow: 0 0 30px 0 #2c1d1d;
+      transition: .4s;
+      transform: scale(1.02);
     }
+
     body {
       background-image: url("https://s.yimg.com/ny/api/res/1.2/nxgfiut26XRKlriGDJFNZA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MA--/https://s.yimg.com/os/creatr-uploaded-images/2020-12/5e4c2e70-3ed1-11eb-bd5f-189e96d3f420");
       background-repeat: no-repeat;
@@ -41,16 +53,114 @@
       margin: 0;
       padding: 0;
     }
+
+    .input-field label {
+      color: #050505;
+    }
+
+    .input-field input[type=text] {
+      padding-left: 5px;
+    }
+
+    .input-field input[type=text]+label {
+      color: #050505;
+    }
   </style>
 </head>
+
 <body>
-  <div class="form">
+  <div class="row">
+    <div class="col s6">
+      <form id="insertForm" method="post" autocomplete="off">
+        <h4 class="center">Student BMI Calculator</h4>
+        <div class="row">
+          <div class="input-field col s10 offset-s1">
+            <input type="text" id="id" name="id" autocomplete="off">
+            <label for="id">ID</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s10 offset-s1">
+            <input type="text" id="name" name="name" autocomplete="off">
+            <label for="name">Name</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s5 offset-s1">
+            <input type="text" id="age" name="age" autocomplete="off">
+            <label for="age">Age</label>
+          </div>
+          <div class="input-field col s5">
+            <select>
+              <option value="" disabled selected>Choose your gender</option>
+              <option value="Male">Male</option>
+              <option value="Female">Female</option>
+            </select>
+            <label for="gender">Gender</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s5 offset-s1">
+            <input type="text" id="height" name="height" autocomplete="off">
+            <label for="height">Height (cm)</label>
+          </div>
+          <div class="input-field col s5">
+            <input type="text" id="weight" name="weight" autocomplete="off">
+            <label for="weight">Weight (kg)</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="input-field col s5 offset-s1">
+            <input type="text" id="bmi" name="bmi" disabled>
+            <label for="bmi">BMI Result</label>
+          </div>
+          <div class="input-field col s5">
+            <input type="text" id="weight_status" name="weight_status" disabled>
+            <label for="weight_status">Weight Status</label>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col offset-s8">
+            <button class="btn-small waves-effect waves-light" id="submit-btn">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class="col s6">
+      <div class="row">
+        <form id="listrec" method="post" autocomplete="off">
+          <h4 class="center">Student BMI Records</h4>
+          <div class="row">
+            <div class="input-field col s10 offset-s1">
+              <input type="text" id="id" name="id">
+              <label for="id">ID</label>
+            </div>
+          </div>
+          <div class="col offset-s1">
+            <button class="btn-small waves-effect waves-light" id="show-btn">Show Records</button>
+          </div>
+          <div>
+            <button class="btn-small waves-effect waves-light" id="del-btn">Delete Record</button>
+          </div>
+          <div class="row" id="lstcontainer">
+
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- <div class="form">
     <form id="form">
       <div class="row-one">
         <h3>STUDENTS BMI RECORD</h3>
-        <input type="text" class="text-input" id="id" autocomplete="off" required><p class="text">ID</p>
-        <input type="text" class="text-input" id="name" autocomplete="off" required><p class="text">Name</p>
-        <input type="text" class="text-input" id="age" autocomplete="off" required><p class="text">Age</p>
+        <input type="text" class="text-input" id="id" autocomplete="off" required>
+        <p class="text">ID</p>
+        <input type="text" class="text-input" id="name" autocomplete="off" required>
+        <p class="text">Name</p>
+        <input type="text" class="text-input" id="age" autocomplete="off" required>
+        <p class="text">Age</p>
         <label class="container">
           <input type="radio" name="gender" value="F" required><span class="text">Female</span>
           <span class="checkmark"></span>
@@ -61,14 +171,16 @@
         </label>
       </div>
       <div class="row-one">
-        <input type="text" class="text-input" id="height" autocomplete="off" required><p class="text">Height (cm)</p>
-        <input type="text" class="text-input" id="weight" autocomplete="off" required><p class="text">Weight (kg)</p>
+        <input type="text" class="text-input" id="height" autocomplete="off" required>
+        <p class="text">Height (cm)</p>
+        <input type="text" class="text-input" id="weight" autocomplete="off" required>
+        <p class="text">Weight (kg)</p>
       </div>
       <div class="row-two">
         <button type="button" id="submit">Submit</button>
       </div>
     </form>
-  </div>
+  </div> -->
 
   <script>
     var id = document.getElementById("id");
@@ -138,7 +250,7 @@
     <ul>
       <form id="listrec" method="post" autocomplete="off">
         <label for="record">student's records:</label>
-        <input type="text" id="id' name="id"><br><br>
+        <input type="text" id="id' name=" id"><br><br>
         <button class="records waves-effect waves-light" id="records">Show list logs</button>
       </form>
     </ul>
@@ -147,7 +259,8 @@
   <div class="row" id="lstcontainer">
   </div>
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
 
   <script id="listitems" type="text/x-handlebars-template">
@@ -164,10 +277,11 @@
   </script>
 
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
+      $('select').formSelect();
       $('input[type="text"]').val('');
 
-      $('#records').click(function(event) {
+      $('#records').click(function (event) {
         event.preventDefault();
         M.Toast.dismissAll();
         // serialize form data
@@ -176,12 +290,12 @@
 
         // send AJAX request
         $.ajax({
-          url: 'http://172.17.100.12:8081/torregosa/cgi-bin/show.o',
+          url: 'cgi-bin/show.o',
           type: 'POST',
           data: JSON.stringify(formData),
           contentType: 'application/json',
           dataType: 'json',
-          success: function(response) {
+          success: function (response) {
             if (response.status === "success") {
               console.log(response.data)
               var template = Handlebars.compile($("#listitems").html());
@@ -190,9 +304,9 @@
               $("#lstcontainer").html(html);
 
               var toastHTML = '<i class="material-icons">search</i>&nbsp;<span>' + response.data.length + ' record(s) was retrieved.</span>';
-              M.toast({html: toastHTML, classes: 'rounded'});
+              M.toast({ html: toastHTML, classes: 'rounded' });
 
-              $('#recordsclear').click(function(event) {
+              $('#recordsclear').click(function (event) {
                 event.preventDefault();
                 $("#logslist").remove();
               });
@@ -201,13 +315,13 @@
               console.log(response.message_additional)
             }
           },
-          error: function(xhr, status, error) {
+          error: function (xhr, status, error) {
             console.log(xhr.responseText);
           }
         });
       });
 
-      $('#submit').click(function(event) {
+      $('#submit').click(function (event) {
         event.preventDefault();
         var formData = $("#form").serializeArray();
         console.log(JSON.stringify(formData));
@@ -218,22 +332,22 @@
           data: JSON.stringify(formData),
           contentType: 'application/json',
           dataType: 'json',
-          success: function(response) {
+          success: function (response) {
             if (response.status === "success") {
               console.log(response.message)
               console.log(response.data)
               var toastHTML = '<span>Data was inserted.</span>';
-              M.toast({html: toastHTML, classes: 'rounded'});
+              M.toast({ html: toastHTML, classes: 'rounded' });
               $('input[type="text"], input[type="number"]').val('');
               displayLogs(response.data);
             } else if (response.status === "error") {
               console.log(response.message)
               console.log(response.message_additional)
               var toastHTML = '<i class="material-icons">error_outline</i>&nbsp;<span>' + response.message + '</span>';
-              M.toast({html: toastHTML, classes: 'rounded'});
+              M.toast({ html: toastHTML, classes: 'rounded' });
             }
           },
-          error: function(xhr, status, error) {
+          error: function (xhr, status, error) {
             console.log(xhr.responseText);
           }
         });
@@ -248,4 +362,5 @@
   </script>
 
 </body>
+
 </html>
