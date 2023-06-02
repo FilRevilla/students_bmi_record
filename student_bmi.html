@@ -2,70 +2,11 @@
 <html>
 
 <head>
+  <title>Student BMI Calculator</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet">
-  <style>
-    /* * {
-      font-family: Quicksand;
-      font-size: 15px;
-      text-align: center;
-      color: #050505;
-    } */
-
-    #insertForm {
-      /* background-color: ; */
-      /* height: 700px; */
-      width: 450px;
-      border-radius: 20px;
-      margin: 50px 100px;
-      display: block;
-      border: solid 5px #050001;
-      box-shadow: 0 0 40px 0 #110f0f;
-    }
-
-    #insertForm:hover {
-      box-shadow: 0 0 30px 0 #2c1d1d;
-      transition: .4s;
-      transform: scale(1.02);
-    }
-
-    #listrec {
-      /* background-color: ; */
-      /* height: 700px; */
-      width: 750px;
-      border-radius: 20px;
-      margin: 50px -100px;
-      display: block;
-      border: solid 5px #050001;
-      box-shadow: 0 0 40px 0 #110f0f;
-    }
-
-    #listrec:hover {
-      box-shadow: 0 0 30px 0 #2c1d1d;
-      transition: .4s;
-      transform: scale(1.02);
-    }
-
-    body {
-      background-image: url("https://s.yimg.com/ny/api/res/1.2/nxgfiut26XRKlriGDJFNZA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MA--/https://s.yimg.com/os/creatr-uploaded-images/2020-12/5e4c2e70-3ed1-11eb-bd5f-189e96d3f420");
-      background-repeat: no-repeat;
-      background-size: cover;
-      margin: 0;
-      padding: 0;
-    }
-
-    .input-field label {
-      color: #050505;
-    }
-
-    .input-field input[type=text] {
-      padding-left: 5px;
-    }
-
-    .input-field input[type=text]+label {
-      color: #050505;
-    }
-  </style>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="styles.css" rel="stylesheet">
 </head>
 
 <body>
@@ -91,7 +32,7 @@
             <label for="age">Age</label>
           </div>
           <div class="input-field col s5">
-            <select>
+            <select id="gender" name="gender">
               <option value="" disabled selected>Choose your gender</option>
               <option value="Male">Male</option>
               <option value="Female">Female</option>
@@ -111,17 +52,19 @@
         </div>
         <div class="row">
           <div class="input-field col s5 offset-s1">
-            <input type="text" id="bmi" name="bmi" disabled>
-            <label for="bmi">BMI Result</label>
+            <input type="hidden" id="bmi" name="bmi">
+            <input placeholder="" type="text" id="display_bmi" disabled>
+            <label for="display_bmi">BMI Result</label>
           </div>
           <div class="input-field col s5">
-            <input type="text" id="weight_status" name="weight_status" disabled>
-            <label for="weight_status">Weight Status</label>
+            <input type="hidden" id="weight_status" name="weight_status">
+            <input placeholder="" type="text" id="display_weight_status" disabled>
+            <label for="display_weight_status">Weight Status</label>
           </div>
         </div>
         <div class="row">
           <div class="col offset-s8">
-            <button class="btn-small waves-effect waves-light" id="submit-btn">Submit</button>
+            <button class="btn-small waves-effect waves-light" id="calc-btn">Calculate</button>
           </div>
         </div>
       </form>
@@ -133,130 +76,30 @@
           <h4 class="center">Student BMI Records</h4>
           <div class="row">
             <div class="input-field col s10 offset-s1">
-              <input type="text" id="id" name="id">
-              <label for="id">ID</label>
+              <input type="text" id="uid" name="uid">
+              <label for="uid">ID</label>
             </div>
           </div>
           <div class="col offset-s1">
-            <button class="btn-small waves-effect waves-light" id="show-btn">Show Records</button>
+            <button class="btn waves-effect waves-light" id="search-btn">Search Record</button>
+          </div>
+          <div class="col offset-s4">
+            <button class="btn waves-effect waves-light" id="show-btn">Show Records</button>
           </div>
           <div>
-            <button class="btn-small waves-effect waves-light" id="del-btn">Delete Record</button>
+            <button class="btn waves-effect waves-light" id="del-btn">Delete Record</button>
           </div>
           <div class="row" id="lstcontainer">
 
           </div>
         </form>
+        <div class="fixed-action-btn">
+          <a href="#" class="btn-floating btn-large teal accent-4">
+            <i class="large material-icons">keyboard_arrow_up</i>
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-
-  <!-- <div class="form">
-    <form id="form">
-      <div class="row-one">
-        <h3>STUDENTS BMI RECORD</h3>
-        <input type="text" class="text-input" id="id" autocomplete="off" required>
-        <p class="text">ID</p>
-        <input type="text" class="text-input" id="name" autocomplete="off" required>
-        <p class="text">Name</p>
-        <input type="text" class="text-input" id="age" autocomplete="off" required>
-        <p class="text">Age</p>
-        <label class="container">
-          <input type="radio" name="gender" value="F" required><span class="text">Female</span>
-          <span class="checkmark"></span>
-        </label>
-        <label class="container">
-          <input type="radio" name="gender" value="M" required><span class="text">Male</span>
-          <span class="checkmark"></span>
-        </label>
-      </div>
-      <div class="row-one">
-        <input type="text" class="text-input" id="height" autocomplete="off" required>
-        <p class="text">Height (cm)</p>
-        <input type="text" class="text-input" id="weight" autocomplete="off" required>
-        <p class="text">Weight (kg)</p>
-      </div>
-      <div class="row-two">
-        <button type="button" id="submit">Submit</button>
-      </div>
-    </form>
-  </div> -->
-
-  <script>
-    var id = document.getElementById("id");
-    var age = document.getElementById("name");
-    var age = document.getElementById("age");
-    var height = document.getElementById("height");
-    var weight = document.getElementById("weight");
-    var male = document.querySelector('input[name="gender"][value="M"]');
-    var female = document.querySelector('input[name="gender"][value="F"]');
-    var form = document.getElementById("form"); // Update this line
-
-    function validateForm() {
-      if (id.value == '' || name.value == '' || age.value == '' || height.value == '' || weight.value == '' || (male.checked == false && female.checked == false)) {
-        alert("All fields are required!");
-        return false;
-      } else {
-        countBmi();
-        return true;
-      }
-    }
-
-    document.getElementById("submit").addEventListener("click", validateForm);
-
-    function countBmi() {
-      var p = [id.value, name.value, age.value, height.value, weight.value];
-      if (male.checked) {
-        p.push("male");
-      } else if (female.checked) {
-        p.push("female");
-      }
-      form.reset();
-      var bmi = Number(p[3]) / (Number(p[2]) / 100 * Number(p[2]) / 100);
-
-      var result = '';
-      if (bmi < 18.5) {
-        result = 'Underweight';
-      } else if (18.5 <= bmi && bmi <= 24.9) {
-        result = 'Healthy';
-      } else if (25 <= bmi && bmi <= 29.9) {
-        result = 'Overweight';
-      } else if (30 <= bmi && bmi <= 34.9) {
-        result = 'Obese';
-      } else if (35 <= bmi) {
-        result = 'Extremely obese';
-      }
-
-      var h1 = document.createElement("h1");
-      var h2 = document.createElement("h2");
-
-      var t = document.createTextNode(result);
-      var b = document.createTextNode('BMI: ');
-      var r = document.createTextNode(parseFloat(bmi).toFixed(2));
-
-      h1.appendChild(t);
-      h2.appendChild(b);
-      h2.appendChild(r);
-
-      document.getElementById("result").innerHTML = '';
-      document.getElementById("result").appendChild(h1);
-      document.getElementById("result").appendChild(h2);
-    }
-  </script>
-
-  <p id="result"></p>
-
-  <div class="row">
-    <ul>
-      <form id="listrec" method="post" autocomplete="off">
-        <label for="record">student's records:</label>
-        <input type="text" id="id' name=" id"><br><br>
-        <button class="records waves-effect waves-light" id="records">Show list logs</button>
-      </form>
-    </ul>
-  </div>
-
-  <div class="row" id="lstcontainer">
   </div>
 
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -265,23 +108,232 @@
 
   <script id="listitems" type="text/x-handlebars-template">
     <div class="row" id="logslist">
-      {{#each data}}
-        <div class="divider"></div>
-        <div class="section">
-          <h5>{{id}}</h5>
-          <p>{{name}}</p>
-        </div>
-      {{/each}}
-      <a class="waves-effect waves-light records-small" id="recordsclear">clear</a>
+      <div class="col s10 offset-s1">
+        <div class="section"></div>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Height</th>
+            <th>Weight</th>
+            <th>BMI</th>
+            <th>Weight Status</th>
+          </tr>
+          {{#each data}}
+            <tr class="selectable-row" onclick="selectRow(this)" style="cursor: pointer;">
+              <td class="id">{{id}}</td>
+              <td>{{name}}</td>
+              <td>{{age}}</td>
+              <td>{{gender}}</td>
+              <td>{{height}}</td>
+              <td>{{weight}}</td>
+              <td>{{bmi}}</td>
+              <td>{{weight_status}}</td>
+            </tr>
+          {{/each}}
+        </table>
+        <button class="btn-small waves-effect waves-light" id="clear-btn">Clear Records</button>
+      </div>
     </div>
+  </script>
+
+  <script>
+    var selectedRow;
+
+    function selectRow(row) {
+      // Remove 'selected-row' class from all rows
+      var rows = document.querySelectorAll('.selectable-row');
+      rows.forEach(function (row) {
+        row.classList.remove('selected-row');
+      });
+
+      // Add 'selected-row' class to the clicked row
+      if (row) {
+        row.classList.add('selected-row');
+        selectedRow = row;
+
+        var selectedText = row.querySelector('.selected-row td').textContent;
+
+        // Perform operations with the selected value
+        console.log('Selected row value:', selectedText);
+      } else {
+        // Reset the selectedRow variable if no row is selected
+        selectedRow = null;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      document.addEventListener('click', function (event) {
+        var target = event.target;
+
+        // Check if the click event target is inside the table or not
+        var isInsideTable = target.closest('table');
+
+        // If the click is outside the table, remove the selected row
+        if (!isInsideTable) {
+          selectRow(null);
+        } else {
+          // Handle the case when the click is inside the table
+          // Get the closest row element with the 'selectable-row' class
+          var row = target.closest('.selectable-row');
+
+          // Update the selectedRow variable with the current row
+          selectedRow = row;
+        }
+      });
+    });
   </script>
 
   <script>
     $(document).ready(function () {
       $('select').formSelect();
-      $('input[type="text"]').val('');
 
-      $('#records').click(function (event) {
+      // Event handler for clicking the "Search" button
+      $('#search-btn').click(function (event) {
+        event.preventDefault();
+        M.Toast.dismissAll();
+        // serialize form data
+        var formData = $("#listrec").serializeArray();
+        var inputFieldValue = $('#uid').val();
+
+        // Perform AJAX request to fetch initial data
+        $.ajax({
+          url: 'cgi-bin/search.o',
+          type: 'POST',
+          data: JSON.stringify(formData),
+          contentType: 'application/json',
+          dataType: 'json',
+          success: function (response) {
+            // Handle the response and display the initial data
+            if (inputFieldValue === '') {
+              var toastHTML = '<i class="material-icons">error</i>&nbsp;<span> Enter a valid ID.</span>';
+              M.toast({ html: toastHTML, classes: 'rounded' });
+
+              $('#clear-btn').click(function (event) {
+                event.preventDefault();
+                $("#logslist").remove();
+              });
+
+            } else if (response.data.length === 0) {
+              var toastHTML = '<i class="material-icons">search</i>&nbsp;<span>' + response.data.length + ' record(s) was retrieved.</span>';
+              M.toast({ html: toastHTML, classes: 'rounded' });
+
+              $('#clear-btn').click(function (event) {
+                event.preventDefault();
+                $("#logslist").remove();
+              });
+
+            } else {
+              var template = Handlebars.compile($("#listitems").html());
+              var html = template(response);
+
+              $("#lstcontainer").html(html);
+
+              var toastHTML = '<i class="material-icons">search</i>&nbsp;<span>' + response.data.length + ' record(s) was retrieved.</span>';
+              M.toast({ html: toastHTML, classes: 'rounded' });
+
+              console.log(response.data);
+
+              $('#clear-btn').click(function (event) {
+                event.preventDefault();
+                $("#logslist").remove();
+              });
+            }
+          },
+          error: function (xhr, status, error) {
+            console.log(xhr.responseText);
+          }
+        });
+
+      });
+
+      // Event handler for clicking the "Delete" button
+      $('#del-btn').click(function () {
+        event.preventDefault(); // Prevent the default form submission behavior
+        M.Toast.dismissAll();
+
+        var selectedText = $.trim($(selectedRow).find('.id').eq(0).text());
+
+        if (selectedText === '') {
+          var template = Handlebars.compile($("#listitems").html());
+
+          var toastHTML = '<i class="material-icons">error</i>&nbsp;<span> Nothing is selected.</span>';
+          M.toast({ html: toastHTML, classes: 'rounded' });
+
+          $('#clear-btn').click(function (event) {
+            event.preventDefault();
+            $("#logslist").remove();
+          });
+        } else {
+          var rowData = [
+            { name: 'selectedRow', value: $(selectedRow).find('.id').eq(0).text() }
+          ];
+
+          console.log(JSON.stringify(rowData));
+
+          // Perform AJAX request to fetch initial data
+          $.ajax({
+            url: 'cgi-bin/remove.o',
+            type: 'POST',
+            data: JSON.stringify(rowData),
+            contentType: 'application/json',
+            dataType: 'json',
+            success: function (response) {
+              // Handle the response and display the initial data
+              if (response.status === "success") {
+                var formData = $("#listrec").serializeArray();
+
+                console.log(response.message)
+
+                // Perform AJAX request to fetch initial data
+                $.ajax({
+                  url: 'cgi-bin/show.o',
+                  type: 'POST',
+                  data: JSON.stringify(formData),
+                  contentType: 'application/json',
+                  dataType: 'json',
+                  success: function (response) {
+                    // Handle the response and display the initial data
+                    if (response.status === "success") {
+                      var template = Handlebars.compile($("#listitems").html());
+                      var html = template(response);
+
+                      $("#lstcontainer").html(html);
+
+                      var toastHTML = '<i class="material-icons">remove_circle</i>&nbsp;<span> Record was removed.</span>';
+                      M.toast({ html: toastHTML, classes: 'rounded' });
+
+                      $('#clear-btn').click(function (event) {
+                        event.preventDefault();
+                        $("#logslist").remove();
+                      });
+
+                    } else if (response.status === "error") {
+                      console.log(response.message)
+                      console.log(response.message_additional)
+                    }
+                  },
+                  error: function (xhr, status, error) {
+                    console.log(xhr.responseText);
+                  }
+                });
+
+              } else if (response.status === "error") {
+                console.log(response.message)
+                console.log(response.message_additional)
+              }
+            },
+            error: function (xhr, status, error) {
+              console.log(xhr.responseText);
+            }
+          });
+        }
+
+      });
+
+      $('#show-btn').click(function (event) {
         event.preventDefault();
         M.Toast.dismissAll();
         // serialize form data
@@ -306,7 +358,7 @@
               var toastHTML = '<i class="material-icons">search</i>&nbsp;<span>' + response.data.length + ' record(s) was retrieved.</span>';
               M.toast({ html: toastHTML, classes: 'rounded' });
 
-              $('#recordsclear').click(function (event) {
+              $('#clear-btn').click(function (event) {
                 event.preventDefault();
                 $("#logslist").remove();
               });
@@ -321,30 +373,86 @@
         });
       });
 
-      $('#submit').click(function (event) {
+      $('#calc-btn').click(function (event) {
         event.preventDefault();
-        var formData = $("#form").serializeArray();
+        M.Toast.dismissAll();
+
+        // Get input field values
+        const height = parseFloat($('#height').val()) / 100;
+        const weight = parseFloat($('#weight').val());
+
+        // Calculate BMI
+        const BMI = weight / (height * height);
+
+        // Determine the weight status based on the BMI value
+        let weightStatus;
+        if (BMI < 18.5) {
+          weightStatus = 'Underweight';
+        } else if (BMI < 25) {
+          weightStatus = 'Normal weight';
+        } else if (BMI < 30) {
+          weightStatus = 'Overweight';
+        } else {
+          weightStatus = 'Obese';
+        }
+
+        // Display the calculated BMI and weight status in their respective display fields
+        $('#display_bmi').val(BMI.toFixed(1));
+        $('#display_weight_status').val(weightStatus);
+
+        // Set the calculated values in the hidden input fields for form submission
+        $('#bmi').val(BMI.toFixed(1));
+        $('#weight_status').val(weightStatus);
+
+        var formData = $("#insertForm").serializeArray();
         console.log(JSON.stringify(formData));
 
         $.ajax({
-          url: 'http://172.17.100.12:8081/torregosa/cgi-bin/add.o',
+          url: 'cgi-bin/add.o',
           type: 'POST',
           data: JSON.stringify(formData),
           contentType: 'application/json',
           dataType: 'json',
           success: function (response) {
             if (response.status === "success") {
+              var formData = $("#listrec").serializeArray();
+
               console.log(response.message)
-              console.log(response.data)
-              var toastHTML = '<span>Data was inserted.</span>';
-              M.toast({ html: toastHTML, classes: 'rounded' });
-              $('input[type="text"], input[type="number"]').val('');
-              displayLogs(response.data);
+
+              $.ajax({
+                url: 'cgi-bin/show.o',
+                type: 'POST',
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
+                dataType: 'json',
+                success: function (response) {
+                  if (response.status === "success") {
+                    var template = Handlebars.compile($("#listitems").html());
+                    var html = template(response);
+
+                    $("#lstcontainer").html(html);
+
+                    var toastHTML = '<i class="material-icons">check</i>&nbsp;<span> Record was added.</span>';
+                    M.toast({ html: toastHTML, classes: 'rounded' });
+
+                    $('#clear-btn').click(function (event) {
+                      event.preventDefault();
+                      $("#logslist").remove();
+                    });
+
+                  } else if (response.status === "error") {
+                    console.log(response.message)
+                    console.log(response.message_additional)
+                  }
+                },
+                error: function (xhr, status, error) {
+                  console.log(xhr.responseText);
+                }
+              });
+
             } else if (response.status === "error") {
               console.log(response.message)
               console.log(response.message_additional)
-              var toastHTML = '<i class="material-icons">error_outline</i>&nbsp;<span>' + response.message + '</span>';
-              M.toast({ html: toastHTML, classes: 'rounded' });
             }
           },
           error: function (xhr, status, error) {
@@ -352,15 +460,8 @@
           }
         });
       });
-
-      function displayLogs(data) {
-        var template = Handlebars.compile($("#listitems").html());
-        var html = template(data);
-        $("#logslist").html(html);
-      }
     });
   </script>
-
 </body>
 
 </html>

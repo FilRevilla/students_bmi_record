@@ -1,0 +1,55 @@
+#insertForm {
+  width: 450px;
+  border-radius: 20px;
+  margin: 50px 50px;
+  display: block;
+  border: solid 5px #050001;
+  box-shadow: 0 0 40px 0 #110f0f;
+}
+
+#insertForm:hover {
+  box-shadow: 0 0 30px 0 #2c1d1d;
+  transition: .4s;
+  transform: scale(1.02);
+}
+
+#listrec {
+  width: 900px;
+  border-radius: 20px;
+  margin: 50px -150px;
+  display: block;
+  border: solid 5px #050001;
+  box-shadow: 0 0 40px 0 #110f0f;
+}
+
+#listrec:hover {
+  box-shadow: 0 0 30px 0 #2c1d1d;
+  transition: .4s;
+  transform: scale(1.02);
+}
+
+table {
+  background-color: #FFCACE;
+}
+
+body {
+  background-image: url("https://s.yimg.com/ny/api/res/1.2/nxgfiut26XRKlriGDJFNZA--/YXBwaWQ9aGlnaGxhbmRlcjt3PTY0MA--/https://s.yimg.com/os/creatr-uploaded-images/2020-12/5e4c2e70-3ed1-11eb-bd5f-189e96d3f420");
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.input-field label {
+  color: #050505;
+}
+
+.input-field input[type=text] {
+  padding-left: 5px;
+}
+
+.input-field input[type=text]+label {
+  color: #050505;
+}
+
+.selected-row td {
+  background-color: #e5b6ba;
+}
